@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Madhan Kumar · software developer</title>
+    <!-- Font Awesome 6 (professional symbols only) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif;
+      }
+
+      :root {
+        --bg: #f5fafc; /* soft light blue background */
+        --surface: #ffffff;
+        --text: #1e3b4f; /* deep navy-blue for contrast */
+        --text-light: #3c6475;
+        --blue: #b7d9e9; /* light blue primary */
+        --blue-dark: #98c1d9;
+        --green: #c1e5d4; /* soft mint for accent/hover */
+        --green-dark: #a3d0b9;
+        --border-light: #cde3ed;
+        --card-shadow: 0 20px 30px -15px rgba(146, 192, 216, 0.4);
+        --nav-bg: rgba(237, 247, 252, 0.85);
+        --chat-user: #b7d9e9;
+        --chat-bot: #e0f0f5;
+      }
+
+      body.dark {
+        --bg: #14242e;
+        --surface: #1f3643;
+        --text: #e3f0f5;
+        --text-light: #b6d2e0;
+        --blue: #2f5e77;
+        --blue-dark: #1d4154;
+        --green: #2b6752;
+        --green-dark: #1f4f3e;
+        --border-light: #2f4e5e;
+        --card-shadow: 0 20px 30px -10px #0a1a22;
+        --nav-bg: #1d3846cc;
+        --chat-user: #2f5e77;
+        --chat-bot: #244c5c;
+      }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text);
+        transition: background 0.3s, color 0.2s;
+        line-height: 1.5;
+      }
+
+      /* ===== NAVIGATION ===== */
+      nav {
+        position: sticky;
+        top: 1.5rem;
+        z-index: 50;
+        max-width: 1200px;
+        margin: 0 auto 1.5rem;
+        padding: 0.8rem 2.2rem;
+        background: var(--nav-bg);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-radius: 50px;
+        border: 2px solid var(--blue);
+        box-shadow: 0 15px 25px -10px var(--blue);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        transform-origin: top;
+      }
+
+      nav:hover,
+      nav:active {
+        transform: scale(1.04) translateY(-3px);
+        border-color: var(--green);
+        box-shadow: 0 25px 35px -12px var(--green);
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 800;
+        background: linear-gradient(130deg, #4a8eb0, #5fa87f);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 0px;
+        white-space: nowrap;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        font-weight: 600;
+        color: var(--text);
+        font-size: 1.1rem;
+        padding: 0.3rem 0;
+        border-bottom: 3px solid transparent;
+        transition: 0.15s;
+        cursor: pointer;
+      }
+
+      .nav-links a:hover {
+        border-bottom-color: var(--green);
+        transform: translateY(-2px);
+      }
+
+      .nav-actions {
+        display: flex;
+        gap: 0.8rem;
+      }
+
+      .nav-actions button {
+        background: var(--blue);
+        border: none;
+        color: #1e3b4f;
+        font-weight: 600;
+        padding: 0.5rem 1.2rem;
+        border-radius: 40px;
+        cursor: pointer;
+        transition: 0.15s;
+        border: 1px solid var(--green);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+        box-shadow: 0 5px 10px -5px var(--blue-dark);
+      }
+
+      /* theme toggle: light green while touching/hover, no pink */
+      .nav-actions button:hover,
+      .nav-actions button:active {
+        background: var(--green) !important;
+        border-color: var(--blue) !important;
+        transform: scale(1.06);
+      }
+
+      /* section animations */
+      section {
+        padding: 4rem 8%;
+        max-width: 1200px;
+        margin: 0 auto;
+        animation: floatIn 0.8s ease-out both;
+      }
+
+      @keyframes floatIn {
+        0% {
+          opacity: 0;
+          transform: translateX(-35px) rotate(-0.5deg);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0) rotate(0);
+        }
+      }
+
+      h2 {
+        font-size: 2.8rem;
+        margin-bottom: 2rem;
+        font-weight: 650;
+        display: inline-block;
+        background: linear-gradient(
+          145deg,
+          var(--blue-dark),
+          var(--green-dark)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        border-left: 10px solid var(--blue);
+        padding-left: 1.5rem;
+      }
+
+      .card {
+        background: var(--surface);
+        border-radius: 2.5rem 1.5rem 2.5rem 1.5rem;
+        padding: 2.2rem 2.5rem;
+        box-shadow: var(--card-shadow);
+        border: 2px solid var(--blue);
+        transition: all 0.25s;
+      }
+
+      .card:hover {
+        border-color: var(--green);
+        transform: scale(1.01) translateY(-6px) rotate(0.3deg);
+        box-shadow: 0 30px 30px -15px var(--green);
+      }
+
+      /* Skills grid with professional icons */
+      .skills-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .skill-badge {
+        background: var(--surface);
+        padding: 1rem 2rem 1rem 1.5rem;
+        border-radius: 80px 30px 80px 30px;
+        box-shadow: var(--card-shadow);
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 600;
+        font-size: 1.2rem;
+        border: 2px solid var(--blue);
+        transition: 0.2s;
+        cursor: default;
+      }
+
+      .skill-badge i {
+        color: var(--green-dark);
+        font-size: 2rem;
+        width: 2rem;
+      }
+
+      .skill-badge:hover {
+        background: var(--blue);
+        border-color: var(--green);
+        transform: scale(1.06) rotate(-0.5deg);
+      }
+
+      /* Hero - only Software Developer, no location text */
+      .hero h1 {
+        font-size: 4rem;
+        line-height: 1.1;
+        background: linear-gradient(130deg, #3d7e9c, #4f9b77);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+      }
+
+      /* two-column layout for project + internship */
+      .project-intern-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      /* platform stats for achievements */
+      .platform-stats {
+        display: flex;
+        gap: 2rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+      }
+      .stat-item {
+        background: var(--surface);
+        border-radius: 2rem;
+        padding: 1.2rem 2rem;
+        border: 2px solid var(--blue);
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        font-size: 1.3rem;
+      }
+      .stat-item i {
+        font-size: 2.5rem;
+        color: var(--green-dark);
+      }
+
+      /* contact icons only (professional symbols) */
+      .contact-line {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        font-size: 1.2rem;
+        background: rgba(183, 217, 233, 0.3);
+        padding: 1rem 1.8rem;
+        border-radius: 60px;
+        margin: 1rem 0;
+        border: 2px solid var(--blue);
+      }
+      .contact-line i {
+        color: var(--green-dark);
+        font-size: 2rem;
+        width: 2.2rem;
+      }
+
+      /* Chatbot - no symbols in header, plain text */
+      .chatbot {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 360px;
+        background: var(--surface);
+        border-radius: 40px 40px 30px 30px;
+        box-shadow: 0 30px 40px -15px var(--blue-dark);
+        border: 3px solid var(--blue);
+        z-index: 200;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+      }
+      .chat-header {
+        background: var(--blue);
+        padding: 1.2rem 1.8rem;
+        color: #1e3b4f;
+        font-weight: 700;
+        font-size: 1.3rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 2px solid var(--green);
+        cursor: pointer;
+      }
+      .chat-header span {
+        margin-left: auto;
+        font-size: 1rem;
+      }
+      .chat-body {
+        padding: 1rem;
+        min-height: 220px;
+        max-height: 280px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background: var(--bg);
+      }
+      .msg {
+        padding: 0.7rem 1.3rem;
+        border-radius: 30px 10px 30px 30px;
+        max-width: 85%;
+        font-weight: 500;
+      }
+      .user-msg {
+        background: var(--chat-user);
+        color: #1e3b4f;
+        align-self: flex-end;
+        border-bottom-right-radius: 6px;
+      }
+      .bot-msg {
+        background: var(--chat-bot);
+        color: #1e3b4f;
+        align-self: flex-start;
+        border-bottom-left-radius: 6px;
+      }
+      .chat-input-area {
+        display: flex;
+        border-top: 2px solid var(--blue);
+        background: var(--surface);
+      }
+      .chat-input-area input {
+        flex: 1;
+        padding: 1rem;
+        border: none;
+        background: transparent;
+        color: var(--text);
+        outline: none;
+      }
+      .chat-input-area button {
+        background: var(--green);
+        border: none;
+        padding: 0 1.8rem;
+        font-size: 1.4rem;
+        color: #1e3b4f;
+        cursor: pointer;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 2rem 2rem 3rem;
+        color: var(--text-light);
+        border-top: 2px dashed var(--blue);
+        margin-top: 2rem;
+      }
+
+      @media (max-width: 900px) {
+        .project-intern-row {
+          grid-template-columns: 1fr;
+        }
+        nav {
+          flex-direction: column;
+          gap: 1rem;
+          padding: 1rem;
+        }
+        .nav-links {
+          gap: 1.2rem;
+          justify-content: center;
+        }
+        .hero h1 {
+          font-size: 3rem;
+        }
+        .chatbot {
+          width: 300px;
+          right: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation: left = MADHAN KUMAR, right = Home Skills Project Achievement Contact + theme button (top right) -->
+    <nav>
+      <div class="logo">MADHAN KUMAR S</div>
+      <div class="nav-links">
+        <a
+          onclick="document.getElementById('home').scrollIntoView({behavior:'smooth'}); return false;"
+          >Home</a
+        >
+        <a
+          onclick="document.getElementById('skills').scrollIntoView({behavior:'smooth'}); return false;"
+          >Skills</a
+        >
+        <a
+          onclick="document.getElementById('project').scrollIntoView({behavior:'smooth'}); return false;"
+          >Project</a
+        >
+        <a
+          onclick="document.getElementById('achievement').scrollIntoView({behavior:'smooth'}); return false;"
+          >Achievement</a
+        >
+        <a
+          onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'}); return false;"
+          >Contact</a
+        >
+      </div>
+      <div class="nav-actions">
+        <button onclick="toggleTheme()">
+          <i class="fas fa-palette"></i> theme
+        </button>
+        <a href="#" id="resumeMock" style="text-decoration: none"
+          ><button><i class="fas fa-file-pdf"></i> resume</button></a
+        >
+      </div>
+    </nav>
+
+    <!-- HOME SECTION (hero) - no location text -->
+    <section id="home" class="hero">
+      <h1>Software Developer</h1>
+      <!-- location text completely removed -->
+    </section>
+    <!-- CAREER OBJECTIVE SECTION - add this to your homepage -->
+    <section
+      id="objective"
+      style="padding: 2rem 8%; max-width: 1200px; margin: 0 auto"
+    >
+      <div
+        style="
+          background: var(--surface);
+          border-radius: 2.5rem 1.5rem 2.5rem 1.5rem;
+          padding: 2.5rem 3rem;
+          box-shadow: var(--card-shadow);
+          border: 2px solid var(--blue);
+          position: relative;
+          overflow: hidden;
+        "
+      >
+        <!-- subtle decorative element -->
+        <div
+          style="
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: var(--blue);
+            opacity: 0.1;
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+          "
+        ></div>
+
+        <h2
+          style="
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 650;
+            background: linear-gradient(
+              145deg,
+              var(--blue-dark),
+              var(--green-dark)
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            border-left: 6px solid var(--blue);
+            padding-left: 1.2rem;
+          "
+        >
+          OBJECTIVE
+        </h2>
+
+        <p
+          style="
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: var(--text);
+            max-width: 900px;
+            font-weight: 400;
+          "
+        >
+          Motivated Computer Science Engineering graduate and fresher with
+          strong fundamentals in programming, data structures, and web
+          development. Seeking an entry-level Software Developer or IT role to
+          apply technical skills, gain industry exposure, and contribute to
+          organizational growth.
+        </p>
+
+        <!-- subtle icon accent (optional) -->
+        <div
+          style="
+            margin-top: 1.2rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+          "
+        >
+          <i
+            class="fas fa-quote-right"
+            style="color: var(--green); opacity: 0.4; font-size: 1.5rem"
+          ></i>
+          <span style="color: var(--text-light); font-style: italic"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills">
+      <h2>SKILLS</h2>
+      <div class="skills-grid">
+        <div class="skill-badge"><i class="fab fa-java"></i> Java</div>
+        <div class="skill-badge"><i class="fas fa-code"></i> C</div>
+        <div class="skill-badge"><i class="fas fa-code"></i> C++</div>
+        <div class="skill-badge"><i class="fab fa-html5"></i> HTML5</div>
+        <div class="skill-badge"><i class="fab fa-css3-alt"></i> CSS3</div>
+        <div class="skill-badge"><i class="fab fa-js"></i> JavaScript</div>
+        <div class="skill-badge"><i class="fab fa-react"></i> React</div>
+        <div class="skill-badge"><i class="fab fa-node"></i> Node.js</div>
+        <div class="skill-badge"><i class="fas fa-server"></i> Express.js</div>
+        <div class="skill-badge"><i class="fas fa-database"></i> MongoDB</div>
+        <div class="skill-badge"><i class="fas fa-database"></i> MySQL</div>
+        <div class="skill-badge"><i class="fas fa-sitemap"></i> DSA</div>
+      </div>
+    </section>
+
+    <!-- PROJECT & INTERNSHIP (side by side) -->
+    <section id="project">
+      <h2>PROJECT & INTERNSHIP</h2>
+      <div class="project-intern-row">
+        <!-- Project card -->
+        <div class="card">
+          <h3
+            style="
+              font-size: 2rem;
+              display: flex;
+              gap: 10px;
+              color: var(--green-dark);
+            "
+          >
+            <i class="fas fa-users" style="color: var(--blue)"></i> Employee
+            Management
+          </h3>
+          <p>
+            <span
+              style="
+                background: var(--blue);
+                padding: 0.3rem 1rem;
+                border-radius: 30px;
+              "
+              >MERN full‑stack</span
+            >
+            · role‑based · 50+ records
+          </p>
+          <ul style="margin-top: 1.8rem; list-style: none">
+            <li>
+              <i class="fas fa-seedling" style="color: var(--green)"></i> React
+              UI with leave requests
+            </li>
+            <li>
+              <i class="fas fa-seedling" style="color: var(--green)"></i> REST
+              APIs, CRUD, JWT auth
+            </li>
+            <li>
+              <i class="fas fa-seedling" style="color: var(--green)"></i>
+              responsive dashboard
+            </li>
+          </ul>
+        </div>
+        <!-- Internship card (next to project) -->
+        <div class="card">
+          <h3
+            style="
+              font-size: 2rem;
+              display: flex;
+              gap: 10px;
+              color: var(--green-dark);
+            "
+          >
+            <i class="fas fa-briefcase" style="color: var(--blue)"></i>
+            Internship
+          </h3>
+          <p>
+            <strong>Full Stack Developer Intern</strong> · Ideal Formatic, Salem
+          </p>
+          <p style="margin-top: 1rem">Jun 2025 · 1‑month internship</p>
+          <ul style="margin-top: 1.8rem; list-style: none">
+            <li>
+              <i class="fas fa-seedling" style="color: var(--green)"></i>
+              Developed 3+ modules
+            </li>
+            <li>
+              <i class="fas fa-seedling" style="color: var(--green)"></i> Full
+              stack exposure: React, Node, MongoDB
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENT SECTION -->
+    <section id="achievement">
+      <h2>ACHEVEMENTS & CODING</h2>
+      <div class="card" style="margin-bottom: 2rem">
+        <ul style="font-size: 1.3rem; list-style: none">
+          <li>
+            <i class="fas fa-trophy" style="color: var(--blue)"></i> 2+
+            intra‑college coding contests
+          </li>
+          <li>
+            <i class="fas fa-award" style="color: var(--green)"></i> TCS iON NQT
+            77.35% (Java)
+          </li>
+        </ul>
+      </div>
+      <div class="platform-stats">
+        <div class="stat-item">
+          <i class="fab fa-hackerrank"></i> HackerRank: 150+ problems
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-forward"></i> takeuforward: 100+ DSA
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION (icons only) -->
+    <section id="contact">
+      <h2>CONTACT</h2>
+      <div class="card">
+        <div class="contact-line">
+          <i class="fas fa-envelope"></i> madhankumar1723@gmail.com
+        </div>
+        <div class="contact-line">
+          <i class="fas fa-phone-alt"></i> +91 63693 53512
+        </div>
+        <!-- GITHUB LINK - add this inside your contact section card, after other contact lines -->
+        <div
+          class="contact-line"
+          style="cursor: pointer"
+          onclick="window.open('https://github.com/madhankumar1723', '_blank');"
+        >
+          <i class="fab fa-github"></i> github.com/madhankumar1723
+        </div>
+      </div>
+    </section>
+
+    <!-- AI CHATBOT - no symbols in header -->
+    <div class="chatbot" id="chatbot">
+      <div class="chat-header" id="toggleChat">
+        assistant
+        <span><i class="fas fa-chevron-up"></i></span>
+      </div>
+      <div class="chat-body" id="chatBody">
+        <div class="msg bot-msg">ask about madhan's resume</div>
+      </div>
+      <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="ask ..." />
+        <button id="sendChat"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <i class="fas fa-crown" style="color: var(--blue)"></i> 2026 · madhan
+      kumar
+    </footer>
+
+    <script>
+      // theme toggle (right side top corner) – light blue default, light green on hover
+      function toggleTheme() {
+        document.body.classList.toggle("dark");
+      }
+
+      // resume mock
+      document.getElementById("resumeMock").addEventListener("click", (e) => {
+        e.preventDefault();
+        alert("📄 Resume PDF (based on Madhan_Kumar_S__RESUME)");
+      });
+
+      // chatbot logic
+      const chatBody = document.getElementById("chatBody");
+      const chatInput = document.getElementById("chatInput");
+      const sendBtn = document.getElementById("sendChat");
+
+      function appendMessage(text, sender) {
+        const msgDiv = document.createElement("div");
+        msgDiv.classList.add("msg", sender === "user" ? "user-msg" : "bot-msg");
+        msgDiv.innerText = text;
+        chatBody.appendChild(msgDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+
+      function botReply(user) {
+        const q = user.toLowerCase();
+        if (q.includes("skill"))
+          return "Java, C, C++, HTML, CSS, JS, React, Node, Express, MongoDB, MySQL, DSA.";
+        if (q.includes("project"))
+          return "Employee Management System (MERN) with role access.";
+        if (q.includes("education"))
+          return "BE CSE, Government College of Engineering, Salem · CGPA 8.12 (2022–26)";
+        if (q.includes("contact"))
+          return "madhankumar1723@gmail.com  or  +91 63693 53512";
+        if (q.includes("intern"))
+          return "Full Stack intern at Ideal Formatic, Jun 2025.";
+        if (q.includes("hackerrank"))
+          return "HackerRank: 150+ problems solved.";
+        if (q.includes("takeuforward"))
+          return "takeuforward: 100+ DSA problems solved.";
+        if (q.includes("achievement"))
+          return "2 coding contests, TCS NQT 77.35%.";
+        return "ask about skills, project, internship, achievements, contact.";
+      }
+
+      function handleSend() {
+        const txt = chatInput.value.trim();
+        if (!txt) return;
+        appendMessage(txt, "user");
+        chatInput.value = "";
+        setTimeout(() => {
+          appendMessage(botReply(txt), "bot");
+        }, 250);
+      }
+
+      sendBtn.addEventListener("click", handleSend);
+      chatInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") handleSend();
+      });
+
+      // toggle chatbot minimize
+      const toggleChat = document.getElementById("toggleChat");
+      const chatBodyEl = document.getElementById("chatBody");
+      const inputArea = document.querySelector(".chat-input-area");
+      let minimized = false;
+      toggleChat.addEventListener("click", (e) => {
+        if (e.target.closest("button")) return;
+        if (!minimized) {
+          chatBodyEl.style.display = "none";
+          inputArea.style.display = "none";
+          toggleChat.innerHTML =
+            'assistant <span><i class="fas fa-chevron-down"></i></span>';
+        } else {
+          chatBodyEl.style.display = "flex";
+          inputArea.style.display = "flex";
+          toggleChat.innerHTML =
+            'assistant <span><i class="fas fa-chevron-up"></i></span>';
+        }
+        minimized = !minimized;
+      });
+    </script>
+  </body>
+</html>
